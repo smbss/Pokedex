@@ -92,8 +92,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            // This is what happens when a collection view cell is selected
         
+            // Here we also need to consider if we are selecting a filtered pokemon cell or not
+        var poke: Pokemon!
         
+        if inSearchMode {
+            
+            poke = filteredPokemon[indexPath.row]
+        } else {
+            
+            poke = pokemon[indexPath.row]
+        }
+        
+            // Performing the segue and passing the pokemon info
+        performSegue(withIdentifier: "PokemonDetailVC", sender: poke)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -160,6 +173,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-
+        // This happens before the segue occurs and is where we send the data
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PokemonDetailVC" {
+            if let detailsVC = segue.destination as? PokemonDetailVC {
+                if let poke = sender as? Pokemon {
+                    detailsVC.pokemon = poke
+                }
+            }
+        }
+    }
+    
 }
 
