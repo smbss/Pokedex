@@ -18,7 +18,6 @@
 		AAA0013A1D9C340D00FD8F9C /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA001391D9C340D00FD8F9C /* csv.swift */; };
 		AAA0013C1D9D6F1600FD8F9C /* pokemon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA0013B1D9D6F1600FD8F9C /* pokemon.ttf */; };
 		AAA001421D9D70B400FD8F9C /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAA001401D9D70B400FD8F9C /* music.mp3 */; };
-		AAA001431D9D70B400FD8F9C /* music.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA001411D9D70B400FD8F9C /* music.png */; };
 		AAA001451D9D7D9000FD8F9C /* PokemonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA001441D9D7D9000FD8F9C /* PokemonDetailVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		AAA001391D9C340D00FD8F9C /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
 		AAA0013B1D9D6F1600FD8F9C /* pokemon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pokemon.ttf; sourceTree = "<group>"; };
 		AAA001401D9D70B400FD8F9C /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
-		AAA001411D9D70B400FD8F9C /* music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music.png; sourceTree = "<group>"; };
 		AAA001441D9D7D9000FD8F9C /* PokemonDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +112,6 @@
 			children = (
 				AAA0013B1D9D6F1600FD8F9C /* pokemon.ttf */,
 				AAA001311D9ACFBC00FD8F9C /* pokemon.csv */,
-				AAA001411D9D70B400FD8F9C /* music.png */,
 				AAA001401D9D70B400FD8F9C /* music.mp3 */,
 			);
 			name = Resources;
@@ -190,7 +187,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA0013C1D9D6F1600FD8F9C /* pokemon.ttf in Resources */,
-				AAA001431D9D70B400FD8F9C /* music.png in Resources */,
 				AAA0012A1D9AC96F00FD8F9C /* LaunchScreen.storyboard in Resources */,
 				AAA001421D9D70B400FD8F9C /* music.mp3 in Resources */,
 				AAA001271D9AC96F00FD8F9C /* Assets.xcassets in Resources */,
