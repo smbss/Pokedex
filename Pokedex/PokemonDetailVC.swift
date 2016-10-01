@@ -31,6 +31,17 @@ class PokemonDetailVC: UIViewController {
         
         nameLbl.text = pokemon.name.capitalized
         mainImg.image = UIImage(named: "\(pokemon.pokedexId)")
+        
+        pokemon.downloadPokemonDetail { 
+                // This is the closure of the typealias DownloadCompleted
+            
+            self.updateUI()
+            
+        }
+    }
+    
+    func updateUI() {
+        
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {

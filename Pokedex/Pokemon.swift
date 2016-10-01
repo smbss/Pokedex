@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class Pokemon {
     
@@ -19,6 +20,7 @@ class Pokemon {
     private var _weight: String!
     private var _attack: String!
     private var _nextEvolutionTxt: String!
+    private var _pokemonURL: String!
     
     var name: String {
         
@@ -33,6 +35,22 @@ class Pokemon {
     init(name: String, pokedexId: Int) {
         self._name = name
         self._pokedexId = pokedexId
+        
+        self._pokemonURL = "\(URL_BASE)\(URL_POKEMON)\(self.pokedexId)"
     }
+    
+        // Since the download of data is asynchronous it may not be available to populate the labels
+        // This way we need to create the typealias DownloadComplete on Constants
+        // This will allow the function to know when the download has been completed
+    func downloadPokemonDetail(completed: DownloadComplete) {
+        
+            // Creating the Alamofire get request with the pokemonURL
+        Alamofire.request(_pokemonURL, method: .get).responseJSON { (response) in
+            
+            print(response.result.value)
+            
+        }
+    }
+    
 }
 
