@@ -29,8 +29,12 @@ class PokemonDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let img = UIImage(named: "\(pokemon.pokedexId)")
+
         nameLbl.text = pokemon.name.capitalized
-        mainImg.image = UIImage(named: "\(pokemon.pokedexId)")
+        mainImg.image = img
+        currentEvoImg.image = img
+        pokedexLbl.text = "\(pokemon.pokedexId)"
         
         pokemon.downloadPokemonDetail { 
                 // This is the closure of the typealias DownloadCompleted
@@ -46,6 +50,20 @@ class PokemonDetailVC: UIViewController {
         defenseLbl.text = pokemon.defense
         heightLbl.text = pokemon.height
         weightLbl.text = pokemon.weight
+        typeLbl.text = pokemon.type
+        descriptionLbl.text = pokemon.description
+        
+        if pokemon.nextEvolutionId == "" {
+            
+            evoLbl.text = "No more evolutions"
+            nextEvoImg.isHidden = true
+        } else {
+            
+            nextEvoImg.isHidden = false
+            nextEvoImg.image = UIImage(named: pokemon.nextEvolutionId)
+            evoLbl.text = "Next Evolution: \(pokemon.nextEvolutionName) - \(pokemon.nextEvolutionLevel)"
+        }
+        
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
