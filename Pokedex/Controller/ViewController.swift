@@ -73,12 +73,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             collection.reloadData()
                 // Making the keyboard disapear
             view.endEditing(true)
-            
         } else {
             inSearchMode = true
-            
             let lower = searchBar.text!.lowercased()
-            
                 // Creating a filtered pokemon list
                 // $0 is a placeolder for each item inside the pokemon array
                 // We are checking if pokemon.name contains the lower text written on the search bar
@@ -101,13 +98,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell {
             let poke: Pokemon!
-            
             if inSearchMode {
                 poke = filteredPokemon[indexPath.row]
             } else {
                 poke = pokemon[indexPath.row]
             }
-            
             cell.configureCell(poke)
             return cell
         } else {
@@ -122,13 +117,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
             // Here we also need to consider if we are selecting a filtered pokemon cell or not
         var poke: Pokemon!
-        
         if inSearchMode {
             poke = filteredPokemon[indexPath.row]
         } else {
             poke = pokemon[indexPath.row]
         }
-        
             // Performing the segue and passing the pokemon info
         performSegue(withIdentifier: "PokemonDetailVC", sender: poke)
     }
