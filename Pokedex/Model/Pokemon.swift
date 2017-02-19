@@ -139,7 +139,7 @@ class Pokemon {
     func downloadPokemonDetail(completed: @escaping DownloadComplete) {
         
             // Creating the Alamofire get request with the pokemonURL
-        Alamofire.request(_pokemonURL, method: .get).responseJSON { (response) in
+        Alamofire.request(_pokemonURL).responseJSON { (response) in
             
             if let dict = response.result.value as? Dictionary<String, AnyObject> {
                 
@@ -170,7 +170,6 @@ class Pokemon {
                         
                         self._type = name.capitalized
                     }
-                    
                         // If there is more than one type we are going to add it too
                     if types.count > 1 {
                         for x in 1 ..< types.count {
@@ -182,12 +181,9 @@ class Pokemon {
                         }
                     }
                     
-                    
                 } else {
-                    
                     self._type = ""
                 }
-                
                     // There are different descriptions, we are only interested in the first
                 if let descArr = dict["descriptions"] as? [Dictionary<String, String>] , descArr.count > 0 {
                     
@@ -196,7 +192,7 @@ class Pokemon {
                         let descURL = "\(URL_BASE)\(url)"
                         
                             // The description is inside an URL so we need another request
-                        Alamofire.request(descURL, method: .get).responseJSON(completionHandler: { (response) in
+                        Alamofire.request(descURL).responseJSON(completionHandler: { (response) in
                             
                             if let descDict = response.result.value as? Dictionary<String, AnyObject> {
                                 
@@ -234,9 +230,7 @@ class Pokemon {
                                 
                                     // Checking if the next evo level exists
                                 if let lvlExist = evolutions[0]["level"] as? Int {
-                                    
                                     self._nextEvolutionLevel = "LVL \(lvlExist)"
-                                    
                                 } else {
                                     self._nextEvolutionLevel = ""
                                 }
@@ -245,11 +239,6 @@ class Pokemon {
                         
                     }
                 }
-                
-                print(self._weight)
-                print(self._height)
-                print(self._attack)
-                print(self._defense)
 
             }
             

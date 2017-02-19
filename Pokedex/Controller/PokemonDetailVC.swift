@@ -34,18 +34,16 @@ class PokemonDetailVC: UIViewController {
         nameLbl.text = pokemon.name.capitalized
         mainImg.image = img
         currentEvoImg.image = img
-        pokedexLbl.text = "\(pokemon.pokedexId)"
         
         pokemon.downloadPokemonDetail { 
                 // This is the closure of the typealias DownloadCompleted
-            print("Did arrive here?")
             self.updateUI()
         }
         
     }
     
     func updateUI() {
-        
+        pokedexLbl.text = "\(pokemon.pokedexId)"
         attackLbl.text = pokemon.attack
         defenseLbl.text = pokemon.defense
         heightLbl.text = pokemon.height
@@ -54,11 +52,9 @@ class PokemonDetailVC: UIViewController {
         descriptionLbl.text = pokemon.description
         
         if pokemon.nextEvolutionId == "" {
-            
             evoLbl.text = "No more evolutions"
             nextEvoImg.isHidden = true
         } else {
-            
             nextEvoImg.isHidden = false
             nextEvoImg.image = UIImage(named: pokemon.nextEvolutionId)
             evoLbl.text = "Next Evolution: \(pokemon.nextEvolutionName) - \(pokemon.nextEvolutionLevel)"
@@ -67,9 +63,7 @@ class PokemonDetailVC: UIViewController {
     }
     
     @IBAction func backBtnPressed(_ sender: UIButton) {
-        
         dismiss(animated: true, completion: nil)
     }
-    
     
 }

@@ -34,26 +34,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func initAudio() {
-        
         let path = Bundle.main.path(forResource: "music", ofType: "mp3")!
-        
         do {
             musicPlayer = try AVAudioPlayer(contentsOf: URL(string: path)!)
             musicPlayer.prepareToPlay()
             musicPlayer.numberOfLoops = -1 // Infinite loop
-            
         } catch let err as NSError {
-            print("!ERRmus: \(err.debugDescription)")
+            print("Music error: \(err.debugDescription)")
         }
     }
 
     func parsePokemonCSV() {
         let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")!
-        
         do {
             let csv = try CSV(contentsOfURL: path)
             let rows = csv.rows
-            //print("!ROWS: \(rows)")
             
             for row in rows {
                 let pokeId = Int(row["id"]!)!
@@ -63,7 +58,43 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 pokemon.append(poke)
             }
         } catch let err as NSError {
-            print("!ERRparse: \(err.debugDescription)")
+            print("CSV parsing error: \(err.debugDescription)")
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == nil || searchBar.text == "" {
+                // If the text is nil or has been erased we return to the initial collection view
+            inSearchMode = false
+            collection.reloadData()
+                // Making the keyboard disapear
+            view.endEditing(true)
+            
+        } else {
+            inSearchMode = true
+            
+            let lower = searchBar.text!.lowercased()
+            
+                // Creating a filtered pokemon list
+                // $0 is a placeolder for each item inside the pokemon array
+                // We are checking if pokemon.name contains the lower text written on the search bar
+            filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
+            collection.reloadData()
+        }
+    }
+    
+        // This happens before the segue occurs and is where we send the data
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PokemonDetailVC" {
+            if let detailsVC = segue.destination as? PokemonDetailVC {
+                if let poke = sender as? Pokemon {
+                    detailsVC.pokemon = poke
+                }
+            }
         }
     }
     
@@ -72,20 +103,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let poke: Pokemon!
             
             if inSearchMode {
-                
                 poke = filteredPokemon[indexPath.row]
             } else {
-                
                 poke = pokemon[indexPath.row]
             }
             
             cell.configureCell(poke)
-            
-        return cell
-        
+            return cell
         } else {
-            // If we can't use a reusable cell we will just create a generic one (it shouldn't happen)
-            
+                // If we can't use a reusable cell we will just create a generic one (it shouldn't happen)
             return UICollectionViewCell()
         }
         
@@ -98,10 +124,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         var poke: Pokemon!
         
         if inSearchMode {
-            
             poke = filteredPokemon[indexPath.row]
         } else {
-            
             poke = pokemon[indexPath.row]
         }
         
@@ -111,10 +135,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if inSearchMode {
-            
             return filteredPokemon.count
         } else {
-            
             return pokemon.count
         }
         
@@ -144,44 +166,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             sender.alpha = 1.0
         }
     
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        view.endEditing(true)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchBar.text == nil || searchBar.text == "" {
-                // If the text is nil or has been erased we return to the initial collection view
-            inSearchMode = false
-            collection.reloadData()
-                // Making the keyboard disapear 
-            view.endEditing(true)
-            
-        } else {
-            inSearchMode = true
-            
-            let lower = searchBar.text!.lowercased()
-            
-                // Creating a filtered pokemon list 
-                    // $0 is a placeolder for each item inside the pokemon array
-                    // We are checking if pokemon.name contains the lower text written on the search bar
-            filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
-            collection.reloadData()
-        }
-    }
-    
-        // This happens before the segue occurs and is where we send the data
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PokemonDetailVC" {
-            if let detailsVC = segue.destination as? PokemonDetailVC {
-                if let poke = sender as? Pokemon {
-                    detailsVC.pokemon = poke
-                }
-            }
-        }
     }
     
 }
